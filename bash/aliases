@@ -14,7 +14,10 @@ alias sa="source ~/.bash_aliases"
 
 
 # Networking
-alias i="sudo /sbin/iptables -L"
+alias ipt="sudo /sbin/iptables -L"
+
+# Display IP Address for Vagrant VM.
+alias i='ifconfig eth1 | grep "inet addr" | cut -d: -f2 | awk "{print \$1}"'
 
 
 # Editor
