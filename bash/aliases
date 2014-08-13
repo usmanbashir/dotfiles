@@ -9,8 +9,8 @@ alias c="clear"
 alias b="byobu"
 alias ll="ls -laF"
 alias gs="c;:gs"
-alias ea="v ~/.bash_aliases"
-alias sa="source ~/.bash_aliases"
+alias ea="v ~/dotfiles/bash/aliases"
+alias sa="source ~/dotfiles/bash/aliases"
 
 
 # Networking
@@ -26,7 +26,7 @@ alias sv="sudo vim"
 
 
 # Project
-alias p="cd ~/desktop/projects/"
+alias p="cd ~/projects/"
 alias :todo="grep -r -n 'TODO:' ./"
 alias :fix="grep -r -n 'FIX:' ./"
 alias :bugs="grep -r -n 'BUG:' ./"
