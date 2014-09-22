@@ -13,6 +13,10 @@ alias gs="c;:gs"
 alias ea="v ~/dotfiles/bash/aliases"
 alias sa="source ~/dotfiles/bash/aliases"
 
+alias :ta="tmux -2 attach -d -t"
+alias :tat="tmux -2 new -s `basename $PWD`"
+alias :tls="tmux list-sessions"
+
 
 # Networking
 alias ipt="sudo /sbin/iptables -L"
