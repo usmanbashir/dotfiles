@@ -3,3 +3,5 @@ export EDITOR="vim"
 
 # Include the aliases
 . ~/dotfiles/bash/aliases
+
+TERM=screen-256color
