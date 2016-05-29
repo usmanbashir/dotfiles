@@ -1,7 +1,5 @@
 # Get me the hell out of here.
 alias q="exit"
-alias :q="exit"
-alias e="exit"
 
 
 # Misc
@@ -9,13 +7,16 @@ alias c="clear"
 alias b="byobu"
 alias ll="ls -laF"
 alias lt="tree"
-alias gs="c;:gs"
 alias ea="v ~/dotfiles/bash/aliases"
 alias sa="source ~/dotfiles/bash/aliases"
 
-alias :ta="tmux -2 attach -d -t"
-alias :tat="tmux -2 new -s `basename $PWD`"
-alias :tls="tmux list-sessions"
+# List all running daemons.
+alias lsd="ps -eo 'tty,pid,comm' | grep ^?"
+
+alias ta="tmux -2 attach -d -t"
+alias tat="tmux -2 new -s `basename $PWD`"
+alias tn="tmux -2 new -s "
+alias tls="tmux list-sessions"
 
 
 # Networking
@@ -32,40 +33,46 @@ alias sv="sudo vim"
 
 # Project
 alias p="cd ~/projects/"
-alias :todo="grep -r -n 'TODO:' ./"
-alias :fix="grep -r -n 'FIX:' ./"
-alias :bugs="grep -r -n 'BUG:' ./"
+alias todo="grep -r -n 'TODO:' ./"
+alias fix="grep -r -n 'FIX:' ./"
+alias bugs="grep -r -n 'BUG:' ./"
 
 
 # Git shortcuts.
-alias :gs="git status"
-alias :ga="git add"
-alias :gc="git commit"
-alias :gcm="git commit -m"
-alias :gd="git diff"
-alias :gdd="git diff --cached"
-alias :gl="git log"
-alias :gp="git push origin master"
-alias :gpF=":gp --force"
-alias :gph="git push heroku master"
-alias :gphF=":gph --force"
+alias gs="git status"
+alias ga="git add"
+alias gap="git add -p"
+alias gc="git commit"
+alias gcm="git commit -m"
+alias gd="git diff"
+alias gdd="git diff --cached"
+alias gl="git log"
+alias gp="git push origin master"
+alias pull="git pull"
+alias gpf="gp --force"
+alias gph="git push heroku master"
+alias gphf="gph --force"
+alias gl="git log --oneline"
+alias gn="gl -n"
 
 
 # Ruby server shortcuts.
-alias :sf="rvmsudo foreman start -p 80"
-alias :ss="rvmsudo rails server -p 80"
+alias sf="foreman start -p 80"
+alias ss="rails server -p 80"
 
 
 # Shortcuts for running Live Reload and RSpec.
-alias :GLL="bundle exec guard -P livereload"
-alias :GRS="foreman run bundle exec guard -P rspec"
-alias :fR="foreman run bundle exec rspec spec"
+alias gll="bundle exec guard -P livereload"
+alias grs="foreman run bundle exec guard -P rspec"
+alias fr="foreman run bundle exec rspec spec"
 
 
 # Heroku shortcuts for pushing apps to satgging and production environments.
-alias :push_staging="git push staging master"
-alias :push_production="git push production master"
+alias hps="git push staging master"
+alias hpp="git push production master"
 
 
 # Heroku shortcut for watching the logs for a given app.
-alias :logs="heroku logs -t -a" # Needs an App Name
+alias logs="heroku logs -t --app" # Needs an App Name
+
+alias server="python -m SimpleHTTPServer 9999"
