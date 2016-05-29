@@ -9,6 +9,9 @@ export GIT_PS1_SHOWSTASHSTATE="true"
 export GIT_PS1_SHOWUNTRACKEDFILES="true"
 export GIT_PS1_SHOWUPSTREAM="auto"
 
+# Enable git auto completion
+. ~/dotfiles/bash/git-completion.bash
+
 export EDITOR="vim"
 
 # Include the aliases
