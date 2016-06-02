@@ -1,12 +1,4 @@
-# Misc settigns.
-
-set -g utf8
-set-window-option -g utf8 on
-set -g status-utf8 on
-
-set -g history-limit 10000
-set -g mode-keys vi
-
+# GENERAL SETTINGS:
 
 # Free the original binding and set it to Ctrl-A instead.
 unbind C-b
@@ -23,9 +15,43 @@ set -g base-index 1
 setw -g pane-base-index 1
 
 
-# This really comes in handy when playing around with your tmux.conf file.
-bind r source-file ~/.tmux.conf \; display 'Reloaded!'
+# Gotta have my rainbows and unicorns.
+set -g default-terminal 'screen-256color'
+set -g terminal-overrides 'xterm:colors=256'
 
+
+# Set scrollbar history to 10k.
+set -g history-limit 10000
+
+
+# Set ESC & ALT disambiguation timeout to 1ms.
+# The default half a second makes Vim painful.
+set-option -sg escape-time 1
+
+
+# Navigate using Vim style keys.
+set -g mode-keys vi
+
+
+# Notify me of activities in other windows.
+set-window-option -g monitor-activity on
+set-window-option -g visual-activity on
+
+
+# Automatically set window title.
+set-window-option -g automatic-rename on
+
+
+
+# WINDOW SETTINGS:
+
+# Switch to the last active window.
+unbind b
+bind b last-window
+
+
+
+# PANE SETTINGS:
 
 # Easy to remember split pane commands.
 bind | split-window -h
@@ -35,11 +61,16 @@ unbind '"'
 unbind %
 
 
-# Moving between panas.
+# Use Vim style keys to move between panes.
 bind h select-pane -L
 bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
+
+unbind Up
+unbind Down
+unbind Left
+unbind Right
 
 
 # Pane resizing.
@@ -49,15 +80,6 @@ bind -r K resize-pane -U 5
 bind -r L resize-pane -R 5
 
 
-# Enter copy mode.
-bind Space copy-mode
-
-
-# Gotta have my rainbows and unicorns, now don't I?
-set -g default-terminal 'screen-256color'
-set -g terminal-overrides 'xterm:colors=256'
-
-
 # Maximize and restore the current pane.
 unbind Up
 bind Up new-window -d -n tmp \; swap-pane -s tmp.1 \; select-window -t tmp
@@ -65,5 +87,60 @@ unbind Down
 bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
 
 
+# Quickly cycle through panes.
+bind -r a select-pane -t :.+
+
+
+
+# COPY & PASTE SETTINGS:
+
+# Copy & Paste using Vim style keys.
+bind Space copy-mode
+unbind P
+bind P paste-buffer
+bind -t vi-copy 'v' begin-selection
+bind -t vi-copy 'y' copy-pipe "reattach-to-user-namespace pbcopy"
+
+# Update default binding of `Enter` to also use copy-pipe.
+unbind -t vi-copy Enter
+bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+
+# DEPENDENCY NOTE:
+# For OSX, `reattach-to-user-namespace` is required.
+
+
+
+# STATUS BAR SETTINGS:
+
+set -g status-fg colour248
+set -g status-bg colour236
+
+set-window-option -g status-left " #S "
+set-window-option -g status-left-fg colour235
+set-window-option -g status-left-bg colour252
+
+set-window-option -g window-status-format " #I: #W "
+set-window-option -g window-status-current-format " #I: #W "
+set-window-option -g window-status-current-fg colour252
+set-window-option -g window-status-current-bg black
+
+set-window-option -g status-right " #H | %b-%d, %I:%M %p "
+set-window-option -g status-right-fg colour235
+set-window-option -g status-right-bg colour252
+
+
+
+# HELPERS:
+
+# Find & switch between active sessions.
+# Similar to `<prefix> s`, which shows a list of sessions instead.
+unbind S
+bind S command-prompt "switch -t %1"
+
+
+# This really comes in handy when playing around with your tmux.conf file.
+bind r source-file ~/.tmux.conf \; display 'Reloaded!'
+
+
 # Log output to a text file on demand.
-bind P pipe-pane -o "cat >>~/#W.log" \; display "Toggled logging to ~/#W.log"
+bind T pipe-pane -o "cat >>~/#W.log" \; display "Toggled logging to ~/#W.log"
